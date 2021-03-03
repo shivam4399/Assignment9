@@ -26,6 +26,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * @author shivam singh
+ *
+ */
 public class MovieDriver {
 	ArrayList<Movie> al;
 	BufferedReader br;
@@ -52,7 +56,7 @@ public class MovieDriver {
 		driver.userMenu();
 
 	}
-	public List<Movie> populateMovies(File file) throws FileNotFoundException, ParseException
+	public void populateMovies(File file) throws FileNotFoundException, ParseException
 	{
 		List<Movie> list=new ArrayList<Movie>();	
 		  Scanner sc=new Scanner(file);
@@ -83,7 +87,7 @@ public class MovieDriver {
 				
 			}
 			
-			return list;
+			
 	}
 
 	private void userMenu() throws Exception {
