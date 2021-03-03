@@ -50,12 +50,14 @@ public class MovieDriver {
 			e.printStackTrace();
 		}
 		
-		
+		//start the program and provide menu to user to manipulate
 		
 		MovieDriver driver = new MovieDriver();
 		driver.userMenu();
 
 	}
+	
+	//method to read data from the file and create object with that data
 	public void populateMovies(File file) throws FileNotFoundException, ParseException
 	{
 		List<Movie> list=new ArrayList<Movie>();	
@@ -90,6 +92,7 @@ public class MovieDriver {
 			
 	}
 
+	//menu provided to user to manipluate
 	private void userMenu() throws Exception {
 		for(; ;)
 		{
@@ -138,7 +141,7 @@ public class MovieDriver {
 		}
 		
 	}
-
+	//method to check whether the movie id is valid or not
 	public boolean isMovieIDValid(int id)
 	{
 		Iterator<Movie> it= al.iterator();
@@ -156,7 +159,7 @@ public class MovieDriver {
 		return true;
 	
 	}
-	
+	//method to add new movie
 	public void inputAddNewMovie()throws Exception
 	{
 		
@@ -217,9 +220,11 @@ public class MovieDriver {
 		al.add(m);
 		System.out.println("Movie added Successfully");
 	}
+	//method to display the list of the movie
 	
 	public void displayMovieList(ArrayList<Movie> al)
 	{
+		//iterator is used to iterate the movie
 		Iterator<Movie> it=al.iterator();
 		
 		while(it.hasNext())
@@ -244,6 +249,8 @@ public class MovieDriver {
 		
 	}
 	
+	
+	//method to read data from serialize file (Movie.ser) i.e deserilization
 	public ArrayList<Movie> readMovieFromFile()
 	{
 		FileInputStream fis=null;
@@ -276,6 +283,7 @@ public class MovieDriver {
 			return al;
 	}
 	
+	
 	public void inputFindMoviesByYear()throws Exception
 	{
 		System.out.println("Enter Year");
@@ -283,7 +291,7 @@ public class MovieDriver {
 		
 		findMoviesByYear(year);
 	}
-	
+	//method to find the movies with respect to year
 	public ArrayList<Movie> findMoviesByYear(String year)
 	{
 		Iterator<Movie> it=al.iterator();
@@ -309,7 +317,7 @@ public class MovieDriver {
 		
 		findMoviesByActor(actor);
 	}
-	
+	//method to find the movies with respect to Actor
 	public ArrayList<Movie> findMoviesByActor(String actor)
 	{
 		Iterator<Movie> it=al.iterator();
@@ -327,6 +335,7 @@ public class MovieDriver {
 		return mal;
 	}
 	
+	//method to update the rating of movies
 	public void inputUpdateMovieRating()throws Exception
 	{
 		System.out.println("Enter Movie ID");
@@ -361,6 +370,7 @@ public class MovieDriver {
 		m.setMovieRating(rating);
 	}
 	
+	//method to update the business done by movie
 	public void inputUpdateBusiness()throws Exception
 	{
 		System.out.println("Enter Movie ID");
@@ -417,6 +427,7 @@ public class MovieDriver {
 		
 	}
 	
+	//method to add data into database
 	public void insertMoviesInDB()throws Exception
 	{
 		PreparedStatement ps=con.prepareStatement("Insert into movie_table values(?,?,?,?,?,?,?,?,?)");
