@@ -178,8 +178,8 @@ public class MovieDriver {
 	
 	public void addMovieToFile()throws Exception
 	{
-		File f=new File("C:\\Users\\shivam singh\\eclipse-workspace\\Ass9\\Movies.ser");
-		FileOutputStream fos=new FileOutputStream(f);
+		
+		FileOutputStream fos=new FileOutputStream("Movies.ser");
 		ObjectOutputStream oos=new ObjectOutputStream(fos);
 		
 		oos.writeObject(al);
@@ -197,15 +197,15 @@ public class MovieDriver {
 		ObjectInputStream ois=null;
 			try
 			{
-				File f=new File("C:\\Users\\shivam singh\\eclipse-workspace\\Ass9\\Movies.ser");
 				
-				fis=new FileInputStream(f);
+				
+				fis=new FileInputStream("Movies.ser");
 				ois=new ObjectInputStream(fis);
 		
 				Object object=ois.readObject();
 			    List<Object> objects3 = Collections.singletonList(object);
 			    
-			    
+			    System.out.println(objects3.size());
 
 				for(int i=0;i<objects3.size();i++)
 				{
@@ -217,7 +217,9 @@ public class MovieDriver {
 				ois.close();
 				fis.close();
 				
-			}catch(Exception e){e.printStackTrace();}
+			}catch(Exception e){
+				System.out.println();
+				e.printStackTrace();}
 			return al;
 	}
 	
@@ -383,7 +385,7 @@ public class MovieDriver {
 			
 			System.out.println(ps.executeUpdate());
 			
-			System.out.println("EXEC");
+			System.out.println("Data is entered");
 		}
 	}
 	
