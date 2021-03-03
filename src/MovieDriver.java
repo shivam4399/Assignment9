@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,13 +12,18 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class MovieDriver {
@@ -40,19 +46,54 @@ public class MovieDriver {
 			e.printStackTrace();
 		}
 		
+		
+		
 		MovieDriver driver = new MovieDriver();
 		driver.userMenu();
 
+	}
+	public List<Movie> populateMovies(File file) throws FileNotFoundException, ParseException
+	{
+		List<Movie> list=new ArrayList<Movie>();	
+		  Scanner sc=new Scanner(file);
+		 // DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			String text[] = null;						
+			while(sc.hasNextLine())
+			{
+				Movie m=new Movie();
+				Language language= new Language();
+				Category c = new Category();
+				text=sc.nextLine().split(",");
+				m.setMovieID(Integer.valueOf(text[0]));
+				m.setMovieName(text[1]);
+				language.setLangName(text[2]);
+				m.setMovieLang(language);
+				c.setCatName(text[3]);
+				m.setMovieCat(c);
+				ArrayList cast = new ArrayList();
+				cast.add(text[4]);
+				cast.add(text[5]);
+				m.setCast(cast);
+				m.setMovieRating(Double.valueOf(text[6]));
+				m.setTotalBusiness(Double.valueOf(text[7]));
+				String d=text[8];
+				m.setReleaseDate(Date.valueOf(d));
+				list.add(m);
+				al.add(m);
+				
+			}
+			
+			return list;
 	}
 
 	private void userMenu() throws Exception {
 		for(; ;)
 		{
-			System.out.println("1. Insert Into DataBase\n2. Add a New Movie\n3. Serialize the Movies\n4. Deserialize the "
+			System.out.println("1. Insert Into DtaBase\n2. Add a New Movie\n3. Serialize the Movies\n4. Deserialize the "
 					+ "Movie\n5. Find Movies By Year\n6. Find Movies By Actor\n7. Update Movie Rating\n8."
-					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. Exit");
+					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. populate from file");
 			int opt=Integer.parseInt(br.readLine());
-			if(opt==10)
+			if(opt==11)
 				break;
 			switch(opt)
 			{
@@ -79,6 +120,14 @@ public class MovieDriver {
 				case 9: System.out.println("Enter Amount");
 						Map<Language, Set<Movie>> mp= this.getMoviesByBusiness(Double.parseDouble(br.readLine()));
 						break;
+				case 10:
+						System.out.println("Population from file");
+						File f=new File("C:\\Users\\shivam singh\\eclipse-workspace\\Ass9\\Movies_details.txt");
+						this.populateMovies(f);
+						System.out.println("Movie data populated from file");
+						continue;
+						
+				
 						
 				default : this.inputAddNewMovie();break;
 			}
