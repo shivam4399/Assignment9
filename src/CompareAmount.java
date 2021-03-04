@@ -4,6 +4,10 @@ import java.util.Comparator;
 
 
 
+/**
+ * @author shivam singh
+ *
+ */
 public class CompareAmount implements Comparator<Movie>{
 
 	@Override

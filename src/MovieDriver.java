@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -98,9 +99,9 @@ public class MovieDriver {
 		{
 			System.out.println("1. Insert Into DtaBase\n2. Add a New Movie\n3. Serialize the Movies\n4. Deserialize the "
 					+ "Movie\n5. Find Movies By Year\n6. Find Movies By Actor\n7. Update Movie Rating\n8."
-					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. populate from file");
+					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. populate from file\n9. Display Movies");
 			int opt=Integer.parseInt(br.readLine());
-			if(opt==11)
+			if(opt==12)
 				break;
 			switch(opt)
 			{
@@ -133,6 +134,11 @@ public class MovieDriver {
 						this.populateMovies(f);
 						System.out.println("Movie data populated from file");
 						continue;
+				case 11:
+					this.display();
+					continue;
+				
+					
 						
 				
 						
@@ -140,6 +146,12 @@ public class MovieDriver {
 			}
 		}
 		
+	}
+	void display() {
+		for(Movie m:al) {
+			System.out.println("Movie ID"+m.getMovieID());
+			System.out.println("Movie Name"+m.getMovieName());
+		}
 	}
 	//method to check whether the movie id is valid or not
 	public boolean isMovieIDValid(int id)
@@ -239,8 +251,8 @@ public class MovieDriver {
 		
 		FileOutputStream fos=new FileOutputStream("Movies.ser");
 		ObjectOutputStream oos=new ObjectOutputStream(fos);
-		
-		oos.writeObject(al);
+		for(Movie m:al)
+			oos.writeObject(m);
 		
 		System.out.println("Object Inserted Successfully");
 		
@@ -251,36 +263,21 @@ public class MovieDriver {
 	
 	
 	//method to read data from serialize file (Movie.ser) i.e deserilization
-	public ArrayList<Movie> readMovieFromFile()
+	public ArrayList<Movie> readMovieFromFile() throws IOException, ClassNotFoundException
 	{
 		FileInputStream fis=null;
 		ObjectInputStream ois=null;
-			try
-			{
-				
-				
-				fis=new FileInputStream("Movies.ser");
-				ois=new ObjectInputStream(fis);
-		
-				Object object=ois.readObject();
-			    List<Object> objects3 = Collections.singletonList(object);
-			    
-			    System.out.println(objects3.size());
-
-				for(int i=0;i<objects3.size();i++)
-				{
-					Movie m=(Movie)objects3.get(i);
-					al.add(m);
-				}
-				
-				
-				ois.close();
-				fis.close();
-				
-			}catch(Exception e){
-				System.out.println();
-				e.printStackTrace();}
-			return al;
+		try {
+			fis = new FileInputStream("Movies.ser");
+			ois = new ObjectInputStream(fis);
+			while(true)
+				al.add((Movie) ois.readObject());
+			
+		}
+		catch (EOFException eof) {
+			
+		}
+		return al;
 	}
 	
 	

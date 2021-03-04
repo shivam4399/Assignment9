@@ -2,6 +2,10 @@
 import java.io.Serializable;
 import java.util.*;
 import java.sql.Date;
+/**
+ * @author shivam singh
+ *
+ */
 public class Movie implements Serializable {
 
 	private static final long serialVersionUID = 1L;

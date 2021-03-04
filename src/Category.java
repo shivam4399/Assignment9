@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * @author shivam singh
+ *
+ */
 public class Category implements Serializable  {
 	
 	
