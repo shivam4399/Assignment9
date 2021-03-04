@@ -99,7 +99,7 @@ public class MovieDriver {
 		{
 			System.out.println("1. Insert Into DtaBase\n2. Add a New Movie\n3. Serialize the Movies\n4. Deserialize the "
 					+ "Movie\n5. Find Movies By Year\n6. Find Movies By Actor\n7. Update Movie Rating\n8."
-					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. populate from file\n9. Display Movies");
+					+ " Update Business Done by movie\n9. Map Languages and Movies\n10. populate from file\n11. Display Movies");
 			int opt=Integer.parseInt(br.readLine());
 			if(opt==12)
 				break;
